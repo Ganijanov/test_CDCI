@@ -1,0 +1,28 @@
+name: Django CI with Docker
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build -t my-django-app .
+
+      - name: Run migrations and tests
+        run: |
+          docker run --rm my-django-app sh -c "
+            python manage.py migrate --noinput &&
+            python manage.py test
+          "
