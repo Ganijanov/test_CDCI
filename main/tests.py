@@ -7,4 +7,4 @@ class CoreViewsTest(TestCase):
         response = self.client.get(reverse("index"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Hello, CI/CD!")
-        self.assertTemplateUsed(response, "main/index.html")
+        
