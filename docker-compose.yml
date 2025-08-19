@@ -40,19 +40,18 @@ services:
       - loki-data:/loki
 
   promtail:
-      image: grafana/promtail:2.9.1
-      container_name: promtail
-      volumes:
-        - /var/log:/var/log
-        - ./promtail-config.yaml:/etc/promtail/promtail.yaml
-      command: -config.file=/etc/promtail/promtail.yaml
+    image: grafana/promtail:2.9.1
+    container_name: promtail
+    volumes:
+      - ./promtail-config.yaml:/etc/promtail/promtail.yaml
+    command: -config.file=/etc/promtail/promtail.yaml
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    container_name: cadvisor
-    ports:
-      - "9323:8080"
-    volumes: []  
+      image: gcr.io/cadvisor/cadvisor:latest
+      container_name: cadvisor
+      ports:
+        - "9323:8080"
+      volumes: [] 
 
 volumes:
   grafana-data: 
